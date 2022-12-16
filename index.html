@@ -40,15 +40,15 @@
   </body>
   <script>
     function checkDarkMode() {
-      let elem = document.getElementById("clock-section");
-      if (
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      ) {
-        elem.classList.add("bg-black text-white");
-      } else {
-        elem.classList.add("bg-white text-black");
-      }
+       let darkMode = extractUrlParams().get("darkMode");
+        let elem = document.getElementById("clock-section");
+        if (darkMode) {
+          elem.classList.add("bg-black");
+          elem.classList.add("text-white");
+        } else {
+          elem.classList.add("bg-white");
+          elem.classList.add("text-black");
+        }
     }
 
     function getTimeZone() {
