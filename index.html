@@ -27,7 +27,7 @@
 
         <span id="session-text" class="text-[3vw] font-extrabold mx-4">AM</span>
 
-        <div class="border-2 border-black h-48 mx-4"></div>
+        <div class="border-2 border-black h-48 mx-4" id="vr-line"></div>
 
         <div class="flex flex-col justify-center items-center leading-tight">
           <span id="weekday-text" class="text-[5vw] uppercase font-extrabold"
@@ -40,15 +40,19 @@
   </body>
   <script>
     function checkDarkMode() {
-       let darkMode = extractUrlParams().get("darkMode");
-        let elem = document.getElementById("clock-section");
-        if (darkMode) {
-          elem.classList.add("bg-black");
-          elem.classList.add("text-white");
-        } else {
-          elem.classList.add("bg-white");
-          elem.classList.add("text-black");
-        }
+      let darkMode = extractUrlParams().get("darkMode");
+      let containerElem = document.getElementById("clock-section");
+      let vrElem = document.getElementById("vr-line");
+
+      if (darkMode) {
+        containerElem.classList.add("bg-black");
+        containerElem.classList.add("text-white");
+        vrElem.classList.add("border-white");
+      } else {
+        containerElem.classList.add("bg-white");
+        containerElem.classList.add("text-black");
+        vrElem.classList.add("border-black");
+      }
     }
 
     function getTimeZone() {
@@ -121,3 +125,4 @@
     checkDarkMode();
   </script>
 </html>
+
