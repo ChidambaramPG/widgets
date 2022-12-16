@@ -40,15 +40,18 @@
   </body>
   <script>
     function checkDarkMode() {
-      let darkMode = extractUrlParams().get("darkMode");
+      let darkMode = extractUrlParams().get("darkmode");
+      console.log(darkMode);
       let containerElem = document.getElementById("clock-section");
       let vrElem = document.getElementById("vr-line");
 
-      if (darkMode) {
+      if (darkMode == 1) {
+        console.log("dark mode true");
         containerElem.classList.add("bg-black");
         containerElem.classList.add("text-white");
         vrElem.classList.add("border-white");
       } else {
+        console.log("dark mode false");
         containerElem.classList.add("bg-white");
         containerElem.classList.add("text-black");
         vrElem.classList.add("border-black");
@@ -125,4 +128,3 @@
     checkDarkMode();
   </script>
 </html>
-
