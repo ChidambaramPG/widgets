@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xogo Weather Widget</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+      sup {
+        vertical-align: super;
+        font-size: smaller;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="h-screen w-screen" id="clock-section">
+      <div
+        class="relative w-full h-full flex flex-col justify-between items-center"
+        id="previewContainer"
+      >
+        <div class="h-full flex items-center p-5 w-full">
+          <div
+            class="flex flex-col items-center justify-between gap-2 w-full h-full"
+          >
+            <div class="flex justify-between w-full">
+              <div class="flex flex-col">
+                <span
+                  class="text-[1rem] lg:text-[2rem] uppercase font-bold"
+                  id="location-name"
+                  >Spokane,WA</span
+                >
+                <span
+                  class="text-[0.8rem] lg:text-[1.5rem] uppercase"
+                  id="localtime"
+                  >Tue 10/18</span
+                >
+              </div>
+              <div class="flex flex-col">
+                <span
+                  class="text-[1rem] lg:text-[2rem] uppercase font-bold"
+                  id="time-span"
+                  >1:07 PM</span
+                >
+              </div>
+            </div>
+            <div class="flex justify-center w-full">
+              <div class="flex flex-col">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-[5rem] lg:w-[15rem]"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                  />
+                </svg>
+              </div>
+              <div class="flex flex-col justify-center ml-5">
+                <span
+                  class="text-[10vh] lg:text-[20vh] uppercase font-bold"
+                  id=""
+                  ><span id="temperature-span">75</span>
+                  <sup class="">0</sup>
+                  F</span
+                >
+              </div>
+            </div>
+            <div
+              class="flex justify-between w-full text-[0.6rem]"
+              id="forecast-container"
+            >
+              <!-- <div class="flex">
+                <div class="flex flex-col justify-center">
+                  <span class="font-bold lg:text-[1.2rem]">Wed</span>
+                  <div class="flex">
+                    <span class="lg:text-[1rem] uppercase font-bold">50 </span
+                    >/<span class="lg:text-[1rem] uppercase font-bold"
+                      >62
+                    </span>
+                  </div>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-8 lg:w-16"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                  />
+                </svg>
+              </div>
+              <div class="border-[1px] border-black mx-4"></div>
+              <div class="flex">
+                <div class="flex flex-col justify-center">
+                  <span class="font-bold lg:text-[1.2rem]">Thu</span>
+                  <div class="flex">
+                    <span class="lg:text-[1rem] uppercase font-bold">50 </span
+                    >/<span class="lg:text-[1rem] uppercase font-bold"
+                      >62
+                    </span>
+                  </div>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-8 lg:w-16"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z"
+                  />
+                </svg>
+              </div>
+              <div class="border-[1px] border-black mx-4"></div>
+              <div class="flex">
+                <div class="flex flex-col justify-center">
+                  <span class="font-bold lg:text-[1.2rem]">Fri</span>
+                  <div class="flex">
+                    <span class="lg:text-[1rem] uppercase font-bold">50 </span
+                    >/<span class="lg:text-[1rem] uppercase font-bold"
+                      >62
+                    </span>
+                  </div>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-8 lg:w-16"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                  />
+                </svg>
+              </div>
+              <div class="border-[1px] border-black mx-4"></div>
+              <div class="flex">
+                <div class="flex flex-col justify-center">
+                  <span class="font-bold lg:text-[1.2rem]">Sat</span>
+                  <div class="flex">
+                    <span class="lg:text-[1rem] uppercase font-bold">50 </span
+                    >/<span class="lg:text-[1rem] uppercase font-bold"
+                      >62
+                    </span>
+                  </div>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-8 lg:w-16"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                  />
+                </svg>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+
+  <script>
+    function checkDarkMode() {
+      let darkMode = extractUrlParams().get("dark-mode");
+      let elem = document.getElementById("clock-section");
+      if (darkMode == 1) {
+        elem.classList.add("bg-black", "text-white");
+      } else {
+        elem.classList.add("bg-white", "text-black");
+      }
+    }
+
+    $(document).ready(() => {
+      let location = extractUrlParams().get("location");
+      getWeatherData(location);
+      checkDarkMode();
+    });
+
+    function extractUrlParams() {
+      const queryString = window.location.search;
+      console.log(queryString);
+      const urlParams = new URLSearchParams(queryString);
+      return urlParams;
+    }
+
+    async function getWeatherData(location) {
+      fetch(
+        `http://api.weatherapi.com/v1/forecast.json?key=97533237309244e28b6100626220812&q=${location}&days=5&aqi=no&alerts=no
+`,
+        { mode: "cors" }
+      )
+        .then((resp) => {
+          return resp.json();
+        })
+        .then((resp) => {
+          console.log(resp);
+          setWeatherDetails(resp);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    function setWeatherDetails(data) {
+      let locationDetails = data.location;
+      document.getElementById(
+        "location-name"
+      ).innerHTML = `${locationDetails.name} , ${locationDetails.country}`;
+
+      let localTime = new Date(locationDetails.localtime);
+
+      let localDate = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+      }).format(localTime);
+      console.log(localTime);
+      document.getElementById(
+        "localtime"
+      ).innerHTML = `${localDate}, ${localTime.getDate()}/${localTime.getMonth()}`;
+
+      document.getElementById(
+        "time-span"
+      ).innerHTML = `${localTime.getHours()}:${localTime.getMinutes()}`;
+
+      let weatherDetails = data.current;
+      document.getElementById(
+        "temperature-span"
+      ).innerHTML = `${weatherDetails.temp_f}`;
+
+      let forecast = data.forecast.forecastday;
+
+      forecastday.forEach((item) => {
+        let singleItem = singleForcastString(item);
+      });
+    }
+
+    let singleForcastString = (data) => {
+      let date = new Date(data.date);
+
+      return `<div class="flex">
+                <div class="flex flex-col justify-center">
+                  <span class="font-bold lg:text-[1.2rem]">${date.getDay()}</span>
+                  <div class="flex">
+                    <span class="lg:text-[1rem] uppercase font-bold">50 </span
+                    >/<span class="lg:text-[1rem] uppercase font-bold"
+                      >62
+                    </span>
+                  </div>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-8 lg:w-16"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                  />
+                </svg>
+              </div>
+              <div class="border-[1px] border-black mx-4"></div>`;
+    };
+  </script>
+</html>

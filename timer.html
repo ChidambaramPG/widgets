@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+      html {
+        font-family: "Lato";
+      }
+    </style>
+  </head>
+  <body>
+    <section class="h-screen w-screen" id="clock-section">
+      <div
+        class="relative w-full h-full flex flex-col justify-center items-center aspect-video"
+        id="previewContainer"
+      >
+        <div class="h-full flex items-center">
+          <div class="flex flex-col items-center gap-2">
+            <span
+              class="text-[1.4rem] lg:text-[2rem] uppercase text-center"
+              id="timer-name"
+            ></span>
+            <span
+              class="text-[2rem] lg:text-[9rem] font-extrabold flex"
+              id="timeString"
+              ><div
+                class="flex flex-col justify-center items-center"
+                id="days-container"
+              >
+                <span id="days-count">00</span>
+                <span class="text-[1rem] lg:text-[2rem] uppercase">days</span>
+              </div>
+              <span id="day-separator">:</span>
+              <div class="flex flex-col justify-center items-center">
+                <span id="hours-count">00</span>
+                <span class="text-[1rem] lg:text-[2rem] uppercase">hours</span>
+              </div>
+              :
+              <div class="flex flex-col justify-center items-center">
+                <span id="minutes-count">00</span>
+                <span class="text-[1rem] lg:text-[2rem] uppercase"
+                  >minutes</span
+                >
+              </div>
+              :
+              <div class="flex flex-col justify-center items-center">
+                <span id="seconds-count">00</span>
+                <span class="text-[1rem] lg:text-[2rem] uppercase"
+                  >seconds</span
+                >
+              </div></span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script>
+    let totalSeconds = 0;
+    let countdownTimer = null;
+    function checkDarkMode() {
+      let darkMode = extractUrlParams().get("darkmode");
+      console.log(darkMode);
+      let containerElem = document.getElementById("clock-section");
+      // let vrElem = document.getElementById("vr-line");
+      console.log(containerElem);
+      if (darkMode == 1 && containerElem) {
+        console.log("dark mode true");
+        containerElem.classList.add("bg-black");
+        containerElem.classList.add("text-white");
+        // vrElem.classList.add("border-white");
+      } else {
+        console.log("dark mode false");
+        containerElem.classList.add("bg-white");
+        containerElem.classList.add("text-black");
+        // vrElem.classList.add("border-black");
+      }
+    }
+
+    function setElementValue(id, value) {
+      let elem = document.getElementById(id);
+      elem.innerHTML = value;
+    }
+
+    function getWidgetId() {
+      return extractUrlParams().get("id");
+    }
+
+    function setTimerName() {
+      let name = extractUrlParams().get("title");
+      setElementValue("timer-name", name);
+    }
+
+    function getTimeToAlert() {
+      let id = getWidgetId();
+      let alertDate = extractUrlParams().get("endDate");
+      let alertTime = extractUrlParams().get("endTime");
+      console.log(alertDate, alertTime);
+      let alertDateTime = new Date(alertDate + " " + alertTime);
+      console.log("alertDateTime: ", alertDateTime);
+
+      let currentDate = new Date();
+
+      let diff = alertDateTime.getTime() - currentDate.getTime();
+      console.log("diff:", diff);
+
+      if (diff > 0) {
+        let diffSeconds = diff;
+        console.log(diffSeconds);
+        totalSeconds = parseFloat(diffSeconds / 1000);
+        console.log(totalSeconds);
+        startTimer();
+      } else {
+        totalSeconds = 0;
+        clearInterval(countdownTimer);
+      }
+    }
+
+    function extractUrlParams() {
+      const queryString = window.location.search;
+      console.log(queryString);
+      const urlParams = new URLSearchParams(queryString);
+      return urlParams;
+    }
+
+    function countDown() {
+      // console.log(totalSeconds);
+      let d = totalSeconds - 1;
+
+      var h = Math.floor(d / 3600);
+      var days = Math.floor(h / 24);
+      h = h - days * 24;
+      var m = Math.floor((d % 3600) / 60);
+      var s = Math.floor((d % 3600) % 60);
+
+      hour = h;
+      minutes = m;
+      seconds = s;
+      // console.log(d);
+      totalSeconds = d;
+
+      console.log(days, h, m, s);
+
+      if (days > 0) {
+        document.getElementById("days-count").innerHTML =
+          days.toString().length > 1 ? days : `0${days}`;
+      } else {
+        document.getElementById("days-container").classList.add("hidden");
+        document.getElementById("day-separator").classList.add("hidden");
+      }
+
+      document.getElementById("hours-count").innerHTML =
+        hour.toString().length > 1 ? hour : `0${hour}`;
+      document.getElementById("minutes-count").innerHTML =
+        minutes.toString().length > 1 ? minutes : `0${minutes}`;
+      document.getElementById("seconds-count").innerHTML =
+        seconds.toString().length > 1 ? seconds : `0${seconds}`;
+    }
+
+    $(document).ready(async () => {
+      await checkDarkMode();
+      await getTimeToAlert();
+      await setTimerName();
+    });
+
+    function startTimer() {
+      countdownTimer = setInterval(() => {
+        if (totalSeconds <= 0) {
+          clearInterval(countdownTimer);
+        }
+        countDown(totalSeconds);
+      }, 1000);
+    }
+  </script>
+  <script></script>
+</html>
