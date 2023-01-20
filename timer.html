@@ -165,6 +165,10 @@
         minutes.toString().length > 1 ? minutes : `0${minutes}`;
       document.getElementById("seconds-count").innerHTML =
         seconds.toString().length > 1 ? seconds : `0${seconds}`;
+
+      if (Math.floor(d) == 0) {
+        clearInterval(countdownTimer);
+      }
     }
 
     $(document).ready(async () => {
