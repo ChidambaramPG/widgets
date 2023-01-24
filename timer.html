@@ -105,8 +105,14 @@
       let id = getWidgetId();
       let alertDate = extractUrlParams().get("endDate");
       let alertTime = extractUrlParams().get("endTime");
-      console.log(alertDate, alertTime);
-      let alertDateTime = new Date(alertDate + " " + alertTime);
+      console.log(
+        alertDate,
+        alertTime,
+        alertDate.replace(/-/g, "/") + " " + alertTime
+      );
+      let alertDateTime = new Date(
+        alertDate.replace(/-/g, "/") + " " + alertTime
+      );
       console.log("alertDateTime: ", alertDateTime);
 
       let currentDate = new Date();
