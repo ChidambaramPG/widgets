@@ -77,8 +77,9 @@
     }
 
     function setNumber() {
-      let note = extractUrlParams().get("number");
-      document.getElementById("number-span").innerHTML = note;
+      let number = extractUrlParams().get("number");
+      console.log(number);
+      document.getElementById("number-span").innerHTML = number;
     }
 
     function extractUrlParams() {
