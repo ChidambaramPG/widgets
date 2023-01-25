@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+      @keyframes note-animation {
+        from {
+          transform: translateY(10%);
+        }
+        /* 50% {
+          transform: translateY(80%);
+        } */
+        to {
+          transform: translateY(100%);
+        }
+      }
+
+      html {
+        font-family: "Lato";
+      }
+
+      .marqueue-element {
+        animation-name: note-animation;
+        animation-duration: 10s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+
+        letter-spacing: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="h-screen w-screen" id="clock-section">
+      <div class="flex flex-col h-full" id="clockContainer">
+        <div
+          class="relative w-full h-full flex flex-col justify-center items-center aspect-video"
+          id="previewContainer"
+        >
+          <span
+            class="text-[50vh] uppercase text-center"
+            id="number-span"
+          ></span>
+        </div>
+      </div>
+    </section>
+  </body>
+
+  <script>
+    function checkDarkMode() {
+      let darkMode = extractUrlParams().get("darkmode");
+      console.log(darkMode);
+      let containerElem = document.getElementById("clock-section");
+      // let vrElem = document.getElementById("vr-line");
+
+      if (darkMode == 1) {
+        console.log("dark mode true");
+        containerElem.classList.add("bg-black");
+        containerElem.classList.add("text-white");
+        // vrElem.classList.add("border-white");
+      } else {
+        console.log("dark mode false");
+        containerElem.classList.add("bg-white");
+        containerElem.classList.add("text-black");
+        // vrElem.classList.add("border-black");
+      }
+    }
+
+    function setNumber() {
+      let note = extractUrlParams().get("number");
+      document.getElementById("number-span").innerHTML = note;
+    }
+
+    function extractUrlParams() {
+      const queryString = window.location.search;
+      console.log(queryString);
+      const urlParams = new URLSearchParams(queryString);
+      return urlParams;
+    }
+  </script>
+  <script>
+    checkDarkMode();
+    setNumber();
+  </script>
+</html>
