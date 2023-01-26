@@ -39,6 +39,26 @@
     </section>
   </body>
   <script>
+    function getServerTime() {
+      // let dateUrl =
+      //   "https://overlay-functions.azurewebsites.net/api/ClockJson?code=Jaft_Kz4lnijN5bVDbfF_SCx1dDeaFM0RyHOdkeYBxwXAzFumQvNuA==&timezone=Central Standard Time";
+
+      return new Promise((resolve, reject) => {
+        var requestOptions = {
+          method: "POST",
+          mode: "cors",
+        };
+
+        fetch(
+          "https://overlay-functions.azurewebsites.net/api/ClockJson?code=Jaft_Kz4lnijN5bVDbfF_SCx1dDeaFM0RyHOdkeYBxwXAzFumQvNuA==&timezone=Central%20Standard%20Time",
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      });
+    }
+
     function checkDarkMode() {
       let darkMode = extractUrlParams().get("darkmode");
       console.log(darkMode);
@@ -120,6 +140,13 @@
     }
   </script>
   <script>
+    getServerTime()
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     let interval = null;
     clearInterval(interval);
     setInterval(() => {
