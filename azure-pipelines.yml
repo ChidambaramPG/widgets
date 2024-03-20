@@ -1,4 +1,5 @@
 # Starter pipeline
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -13,6 +14,14 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
+- task: AzureFileCopy@5
+  inputs:
+    SourcePath: '*'
+    azureSubscription: 'XOGO PAYG (6f186380-cce7-412c-9f86-0b8ab59a6c14)'
+    Destination: 'AzureBlob'
+    storage: 'xogostaging'
+    ContainerName: 'widgets'
+    
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
